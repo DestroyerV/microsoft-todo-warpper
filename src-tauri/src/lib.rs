@@ -3,6 +3,7 @@ use tauri::{
     tray::TrayIconBuilder,
     Error, Manager, WebviewWindow, WindowEvent,
 };
+use tauri_plugin_notification::NotificationExt;
 
 /// Injects custom CSS into the specified Tauri webview window.
 fn inject_custom_css(window: &WebviewWindow) -> Result<(), Error> {
@@ -108,6 +109,7 @@ fn setup_window_events(app: &tauri::App) {
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_window_state::Builder::new().build())
         .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
             if let Some(window) = app.get_webview_window("main") {
@@ -126,6 +128,12 @@ pub fn run() {
             setup_autostart(app).expect("Failed to setup autostart");
             setup_tray(app).expect("Failed to setup tray");
             setup_window_events(app);
+            app.notification()
+                .builder()
+                .title("Tauri")
+                .body("Tauri is awesome")
+                .show()
+                .unwrap();
 
             Ok(())
         })
