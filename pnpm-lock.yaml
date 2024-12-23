@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@tauri-apps/api':
-        specifier: ^2
+        specifier: ^2.1.1
         version: 2.1.1
       '@tauri-apps/plugin-autostart':
         specifier: ~2
@@ -25,7 +25,7 @@ importers:
         version: 2.0.0
     devDependencies:
       '@tauri-apps/cli':
-        specifier: ^2
+        specifier: ^2.1.0
         version: 2.1.0
       typescript:
         specifier: ^5.2.2
